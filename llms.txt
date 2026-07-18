@@ -1,0 +1,63 @@
+# Avalanche Liquid Staking
+> An independent, non-custodial dashboard explaining AVAX liquid staking, its tokens, mechanics, providers, and risks without holding user assets.
+
+## What is Avalanche Liquid Staking
+Avalanche liquid staking lets users stake AVAX while receiving a transferable liquid staking token (LST) representing the pooled position and accrued rewards. The underlying AVAX supports validators on Avalanche’s P-Chain, while LSTs such as BENQI’s sAVAX and Hypha’s stAVAX remain usable on the EVM-compatible C-Chain. This solves the illiquidity, minimum-deposit, and validator-management constraints of native staking. Unlike direct delegation, liquid staking adds smart-contract, operator, bridge, and LST-market risks.
+
+## How it works
+1. Review a provider’s contracts, exchange rate, fees, withdrawal terms, and supported wallet using the dashboard and primary sources.
+2. Open the provider’s official app, connect a self-custody wallet on Avalanche C-Chain, and approve an AVAX deposit.
+3. The provider mints an LST to the wallet, pools the deposited AVAX, transfers or accounts for it across C-Chain and P-Chain infrastructure, and assigns it to validators.
+4. Validator rewards increase the AVAX value represented by each non-rebasing LST; users exit through protocol redemption or sell the LST on a secondary market.
+
+## Key facts
+- AVAX is the underlying asset and Avalanche Primary Network staking occurs on the P-Chain.
+- Avalanche C-Chain mainnet uses EVM chain ID `43114`.
+- LSTs are held and transferred on C-Chain; examples include sAVAX and stAVAX.
+- sAVAX is an ERC-20 token whose AVAX exchange rate rises as rewards accrue.
+- stAVAX is a non-rebasing ERC-4626 vault-share token, formerly named ggAVAX.
+- Users retain their wallet keys, but underlying AVAX depends on provider contracts and staking infrastructure.
+- Avalanche native staking has no principal slashing; poor validator performance can forfeit rewards.
+- BENQI redemptions use a cooldown followed by a limited claim window; market swaps may provide faster exits with slippage.
+- An informational dashboard cannot access funds, request seed phrases, or replace transaction review in the wallet.
+
+## Common questions
+- **Is liquid staking safe?** It inherits AVAX and network risk while adding contract exploits, administrative controls, validator performance, cross-chain operations, and LST depegging or liquidity risk. Audits reduce uncertainty but do not remove these risks.
+- **Who controls my assets?** You control the wallet and LST. The provider’s contracts and operational system manage the underlying AVAX after deposit.
+- **What fees apply?** Expect C-Chain gas, provider-specific reward or service fees, and possible DEX fees and slippage. Verify current terms before signing.
+- **How long does it take?** Minting normally follows C-Chain confirmation. Redemption timing depends on the provider’s liquidity and withdrawal queue; a secondary-market sale can be faster.
+- **Which assets and chains are supported?** The core route uses AVAX and AVAX-backed LSTs on Avalanche C-Chain, with underlying staking on P-Chain.
+- **How do I start?** Compare providers, verify the official domain and token contract, keep AVAX for gas, then connect a compatible self-custody wallet to the chosen provider.
+- **Can an LST trade below its redemption value?** Yes. Market price can diverge because of liquidity, demand, perceived protocol risk, or withdrawal delays.
+
+## App
+- Dashboard: https://avalanche-liquid-staking.github.io/
+- App: https://avalanche-liquid-staking.github.io/dashboard/
+
+## Official resources
+Avalanche Liquid Staking Guide: https://build.avax.network/academy/avalanche-l1/permissionless-l1s/02-proof-of-stake/03-liquid-staking
+Avalanche Staking Documentation: https://build.avax.network/docs/primary-network/validate/how-to-stake
+Avalanche Staking for Professionals: https://build.avax.network/docs/primary-network/validate/staking-for-finance-professionals
+BENQI Liquid Staking App: https://staking.benqi.fi/stake
+BENQI Liquid Staking Overview: https://docs.benqi.fi/benqi-liquid-staking/overview
+BENQI Architecture: https://docs.benqi.fi/benqi-liquid-staking/architecture
+BENQI Contracts: https://docs.benqi.fi/resources/contracts/liquid-staking
+BENQI Risks and Audits: https://docs.benqi.fi/resources/risks
+BENQI Source Code: https://github.com/Benqi-fi/BENQI-Smart-Contracts
+BENQI X: https://twitter.com/BenqiFinance
+Hypha Liquid Staking: https://www.hypha.sh/liquid-staking
+Hypha Liquid Staking Documentation: https://docs.hypha.sh/gogopool/liquid-staking/how-liquid-staking-works
+Hypha Audits: https://docs.hypha.sh/technical-information-and-brand-assets/security/audits/quantstamp-audit
+Hypha Source Code: https://github.com/multisig-labs/gogopool
+Hypha X: https://x.com/hypha_sh
+
+## Data & references
+Snowtrace Avalanche Explorer: https://snowtrace.io/
+Snowtrace sAVAX Contract: https://snowtrace.io/token/0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be?chainid=43114
+Snowtrace stAVAX Contract: https://snowtrace.io/token/0xa25eaf2906fa1a3a13edac9b9657108af7b703e3?chainid=43114
+DefiLlama BENQI Staked AVAX: https://defillama.com/protocol/benqi-staked-avax
+DefiLlama Hypha: https://defillama.com/protocol/hypha
+CoinGecko sAVAX: https://www.coingecko.com/en/coins/benqi-liquid-staked-avax
+CoinGecko stAVAX: https://www.coingecko.com/en/coins/hypha-staked-avax
+ERC-20 Standard: https://eips.ethereum.org/EIPS/eip-20
+ERC-4626 Standard: https://eips.ethereum.org/EIPS/eip-4626
