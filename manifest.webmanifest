@@ -1,0 +1,19 @@
+{
+  "name": "Avalanche Liquid Staking",
+  "short_name": "Avalanche Liquid Staking",
+  "description": "Avalanche Liquid Staking explained: how AVAX LSTs like sAVAX and stAVAX work, the options, rewards, risks, and how to stake and unstake — an independent guide.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "en",
+  "background_color": "#f5f6f8",
+  "theme_color": "#f5f6f8",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
