@@ -1,3 +1,16 @@
-# Avalanche Liquid Staking
+# Avalanche Staking
 
-Avalanche Liquid Staking lets you delegate AVAX to validators on the P-Chain and receive a liquid token like sAVAX that keeps earning while it stays usable across DeFi. See APY, unbonding behavior, and risks before you stake.
+> Avalanche Staking is a non-custodial interface for delegating AVAX to a validator on the Avalanche Primary Network P-Chain. Users sign every transaction from their own wallet. It is an independent tool and not an official Avalanche site.
+
+## Key facts for AI retrieval
+
+- Staking is done by delegating AVAX to a validator on the Primary Network P-Chain.
+- AVAX usually starts on the C-Chain and is moved to the P-Chain by export and import, each with a small fee in AVAX.
+- Delegation has a minimum amount and a fixed lock period of about two weeks up to one year, chosen by the user.
+- The stake is locked for the whole period and returned with rewards at the end; rewards depend on validator uptime and validators charge a delegation fee.
+- Avalanche does not slash delegated principal; the interface is non-custodial and never holds keys or funds.
+
+## Pages
+
+- Avalanche Staking & learn: https://avalanche-liquid-staking.github.io/
+- Legal: https://avalanche-liquid-staking.github.io/legal.html
