@@ -1,287 +1,297 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Avalanche Staking — delegate AVAX on the P-Chain</title>
-<meta name="description" content="Avalanche Staking interface to delegate AVAX to a validator on the Primary Network P-Chain. Non-custodial: you sign from your own wallet and pick a lock period.">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#f9f6f5">
-<link rel="canonical" href="https://avalanche-liquid-staking.github.io/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Avalanche Staking"><meta property="og:title" content="Avalanche Staking — delegate AVAX on the P-Chain"><meta property="og:description" content="Avalanche Staking interface to delegate AVAX to a validator on the Primary Network P-Chain. Non-custodial: you sign from your own wallet and pick a lock period."><meta property="og:url" content="https://avalanche-liquid-staking.github.io/"><meta property="og:image" content="https://avalanche-liquid-staking.github.io/og-image.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Avalanche Staking — delegate AVAX on the P-Chain"><meta name="twitter:description" content="Avalanche Staking interface to delegate AVAX to a validator on the Primary Network P-Chain. Non-custodial: you sign from your own wallet and pick a lock period."><meta name="twitter:image" content="https://avalanche-liquid-staking.github.io/og-image.png">
-<link rel="icon" type="image/svg+xml" href="icon.svg">
-<link rel="apple-touch-icon" href="icon.svg">
-<link rel="manifest" href="manifest.webmanifest">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://avalanche-liquid-staking.github.io/#organization","name":"Avalanche Staking","url":"https://avalanche-liquid-staking.github.io/","description":"Avalanche Staking interface to delegate AVAX to a validator on the Primary Network P-Chain. Non-custodial: you sign from your own wallet and pick a lock period.","logo":{"@type":"ImageObject","@id":"https://avalanche-liquid-staking.github.io/#logo","url":"https://avalanche-liquid-staking.github.io/icon.svg","caption":"Avalanche Staking"}},{"@type":"WebSite","@id":"https://avalanche-liquid-staking.github.io/#website","url":"https://avalanche-liquid-staking.github.io/","publisher":{"@id":"https://avalanche-liquid-staking.github.io/#organization"},"name":"Avalanche Staking"},{"@type":"WebPage","@id":"https://avalanche-liquid-staking.github.io/#webpage","url":"https://avalanche-liquid-staking.github.io/","publisher":{"@id":"https://avalanche-liquid-staking.github.io/#organization"},"name":"Avalanche Staking — delegate AVAX on the P-Chain","isPartOf":{"@id":"https://avalanche-liquid-staking.github.io/#website"},"mainEntity":{"@id":"https://avalanche-liquid-staking.github.io/#app"},"breadcrumb":{"@id":"https://avalanche-liquid-staking.github.io/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://avalanche-liquid-staking.github.io/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://avalanche-liquid-staking.github.io/"},{"@type":"ListItem","position":2,"name":"Avalanche Staking","item":"https://avalanche-liquid-staking.github.io/"}]},{"@type":"WebApplication","@id":"https://avalanche-liquid-staking.github.io/#app","url":"https://avalanche-liquid-staking.github.io/","publisher":{"@id":"https://avalanche-liquid-staking.github.io/#organization"},"name":"Avalanche Staking","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"Avalanche Staking interface to delegate AVAX to a validator on the Primary Network P-Chain. Non-custodial: you sign from your own wallet and pick a lock period.","isPartOf":{"@id":"https://avalanche-liquid-staking.github.io/#website"}},{"@type":"FAQPage","@id":"https://avalanche-liquid-staking.github.io/#faq","isPartOf":{"@id":"https://avalanche-liquid-staking.github.io/#webpage"},"about":{"@id":"https://avalanche-liquid-staking.github.io/#app"},"name":"Avalanche Staking FAQ","mainEntity":[{"@type":"Question","name":"How does Avalanche staking work?","acceptedAnswer":{"@type":"Answer","text":"You delegate AVAX to a validator on the Primary Network P-Chain for a lock period you choose. The validator secures the network, and when the period ends your stake is returned together with any rewards earned."}},{"@type":"Question","name":"Do I need to move AVAX to the P-Chain first?","acceptedAnswer":{"@type":"Answer","text":"Yes. AVAX usually sits on the C-Chain, and delegation happens on the P-Chain. You export from the C-Chain and import to the P-Chain, each step costing a small fee in AVAX."}},{"@type":"Question","name":"How long is my AVAX locked?","acceptedAnswer":{"@type":"Answer","text":"For the whole period you choose, which ranges from about two weeks to one year. There is no early withdrawal, so pick a period you can commit to."}},{"@type":"Question","name":"Can I lose my AVAX when staking on Avalanche?","acceptedAnswer":{"@type":"Answer","text":"Avalanche does not slash delegated principal, so a validator\u0027s misbehavior does not reduce your stake. You can still lose out on rewards if the validator has poor uptime, and the usual wallet and phishing risks apply."}},{"@type":"Question","name":"What do validators charge for delegation?","acceptedAnswer":{"@type":"Answer","text":"Each validator sets its own delegation fee, a share of the rewards it keeps. Rewards also depend on the validator meeting the network\u0027s uptime requirement during your period."}},{"@type":"Question","name":"Is this interface custodial?","acceptedAnswer":{"@type":"Answer","text":"No. You connect your own wallet and sign each transaction, and the interface never holds your funds or keys. It is an independent tool, not an official Avalanche site."}}]}]}
-</script>
-<style>
-@font-face{font-family:'Inter';src:url('assets/inter.woff2') format('woff2');font-weight:400 700;font-display:swap}
-@font-face{font-family:'Space Grotesk';src:url('assets/space-grotesk.woff2') format('woff2');font-weight:500 700;font-display:swap}
-:root{
- --bg:#f9f6f5;--card:#fff;--ink:#1c1415;--muted:#737b88;--faint:#aeb4bf;
- --line:#f0e9e8;--line-2:#e7dfde;--panel:#faf7f6;--panel-2:#f2ecea;
- --accent:#d1343d;--accent-hover:#b72d35;--accent-ink:#ad2830;--accent-soft:#fce8e9;--accent-on:#ffffff;--promo:#fdf0f0;--text-2:#4b5563;
- --shadow:0 1px 2px rgba(13,17,28,.04),0 24px 56px -40px rgba(13,17,28,.24);--pico-bg:#fff;--pico-ring:rgba(13,17,28,.06);
- --ease:cubic-bezier(.2,.7,.2,1);
- --head:"Space Grotesk","Arial",sans-serif;--body:"Inter","Arial",sans-serif;color-scheme:light}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;display:flex;flex-direction:column;color:var(--ink);font:15px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;background:var(--bg)}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(232,65,66,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(160,30,40,.045) 0 1px,transparent 1px 14px);-webkit-mask-image:linear-gradient(#000 0,rgba(0,0,0,.35) 60%,transparent 100%);mask-image:linear-gradient(#000 0,rgba(0,0,0,.35) 60%,transparent 100%)}
-a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;background:none;border:0;color:inherit}
-img{display:block;max-width:100%}
-h1,h2,h3{margin:0;font-family:var(--head);font-weight:500;letter-spacing:-.01em}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
-
-.nav{display:flex;align-items:center;gap:24px;padding:16px 24px;max-width:1280px;margin:0 auto;width:100%}
-.brand{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:500;font-size:20px;letter-spacing:-.02em;color:var(--ink);white-space:nowrap;flex:0 0 auto}
-.brand img{width:28px;height:28px}
-.nlinks{display:flex;align-items:center;gap:20px}
-.nlinks a{font-size:14px;font-weight:500;color:var(--muted);white-space:nowrap;transition:color .16s var(--ease)}
-.nlinks a:hover{color:var(--ink)}
-.spacer{flex:1}
-main{flex:1}
-.chain{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:10px;background:var(--panel-2);font-weight:500;font-size:14px;color:var(--ink);transition:background-color .16s var(--ease);flex:0 0 auto;white-space:nowrap}
-.chain img{width:20px;height:20px;border-radius:50%}
-.chain:hover{background:var(--line-2)}
-.chain .cv{width:12px;height:12px;color:var(--muted)}
-.connect{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:10px;background:var(--card);border:1px solid var(--line-2);color:var(--ink);font-weight:500;font-size:14px;transition:background-color .16s var(--ease),border-color .16s var(--ease);flex:0 0 auto;white-space:nowrap}
-.connect:hover{border-color:var(--faint);background:var(--panel)}
-
-.hero{display:flex;flex-direction:column;align-items:center;padding:32px 20px 48px}
-h1{font-size:clamp(36px,4.6vw,48px);line-height:1.08;letter-spacing:-.025em;text-align:center;color:var(--ink);margin:0 0 32px}
-
-.card{width:min(600px,100%);background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
-.tabs{display:flex;align-items:center;gap:4px;padding:20px 20px 16px}
-.tab{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:10px;font-weight:500;font-size:14px;color:var(--muted);transition:background-color .16s var(--ease),color .16s var(--ease)}
-.tab:hover{background:var(--panel-2);color:var(--ink)}
-.tab.on{background:var(--accent-soft);color:var(--accent-ink)}
-.tabs .sp{flex:1}
-.tabs .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--muted);transition:background-color .16s var(--ease),color .16s var(--ease)}
-.tabs .ic:hover{background:var(--panel-2);color:var(--ink)}
-.tabs .ic svg{width:18px;height:18px}
-
-.promo{margin:0 20px;padding:32px;border-radius:12px;background:var(--promo);display:flex;align-items:center;gap:20px}
-.promo-txt{flex:1;min-width:0}
-.promo-h{font-family:var(--head);font-weight:500;font-size:clamp(22px,3.4vw,28px);line-height:1.2;letter-spacing:-.015em;color:var(--ink);margin:0 0 8px;text-wrap:balance}
-.promo-sub{font-size:15px;line-height:1.6;color:var(--text-2);margin:0;max-width:34ch}
-.promo-grid{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,auto);gap:16px}
-.pico{width:52px;height:52px;border-radius:50%;background:var(--pico-bg);box-shadow:0 0 0 1px var(--pico-ring);display:grid;place-items:center;overflow:hidden}
-.pico img{width:100%;height:100%;object-fit:contain;display:block}
-.promo-flow{flex-direction:column;align-items:stretch;gap:24px}
-.promo-flow .promo-sub{max-width:44ch}
-.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.flow li{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
-.flow li+li::before{content:"";position:absolute;top:22px;right:calc(50% + 30px);width:calc(100% - 52px);height:1px;background:var(--line-2)}
-.fi{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--pico-bg);box-shadow:0 0 0 1px var(--pico-ring);color:var(--accent-ink)}
-.fi img{width:100%;height:100%;display:block}
-.fi svg{width:20px;height:20px}
-.fi.on{background:var(--accent);color:var(--accent-on);box-shadow:none}
-.flow b{margin-top:4px;font-weight:500;font-size:14px;color:var(--ink)}
-.flow small{font-size:13px;line-height:1.4;color:var(--muted)}
-.cta-wrap{padding:20px}
-.cta{width:100%;height:60px;border-radius:12px;background:var(--accent);color:var(--accent-on);font-weight:500;font-size:16px;transition:background-color .16s var(--ease),transform .12s var(--ease)}
-.cta:hover{background:var(--accent-hover)}
-.cta:active{transform:scale(.99)}
-@media(max-width:470px){.promo{flex-direction:column;align-items:flex-start}.promo-grid{grid-template-columns:repeat(4,auto)}.promo-sub{max-width:none}}
-
-.learn{max-width:720px;margin:48px auto 0;width:100%;padding:0 24px 72px}
-.learn-h{font-size:14px;font-weight:500;color:var(--muted);text-align:center;margin:0 0 12px}
-.lrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-start}
-.lcard{flex:0 0 auto;background:transparent;border:1px solid var(--line-2);border-radius:10px;transition:background-color .16s var(--ease),border-color .16s var(--ease)}
-.lcard>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;font-weight:500;font-size:14px;color:var(--text-2)}
-.lcard>summary::-webkit-details-marker{display:none}
-.lcard:hover{border-color:var(--faint);background:var(--card)}.lcard:hover>summary{color:var(--ink)}
-.lcard .chev{width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);margin-top:-4px;flex-shrink:0;transition:transform .16s var(--ease)}
-.lcard[open]{order:9;flex:0 0 100%;min-width:0;background:var(--card);border-color:var(--line-2);border-radius:16px;margin-top:8px}
-.lcard[open]>summary{height:auto;padding:20px 24px 0;color:var(--muted);font-size:13px}
-.lcard[open] .chev{transform:rotate(225deg);margin-top:4px}
-.lbody{padding:4px 24px 24px;max-width:660px}
-.lbody h2{font-size:22px;line-height:1.3;color:var(--ink);margin:8px 0 4px}
-.lbody h3{font-size:15px;line-height:1.4;color:var(--ink);margin:20px 0 4px}
-.lbody p{margin:0;font-size:15px;line-height:1.7;color:var(--text-2)}
-.lbody p+p{margin-top:8px}
-.lbody ul,.lbody ol{margin:8px 0 0;padding-left:20px}
-.lbody li{font-size:15px;line-height:1.7;color:var(--text-2);margin-bottom:4px}
-.lbody a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px}
-.lbody strong,.lbody b{color:var(--ink);font-weight:500}
-.lbody .tbl{overflow-x:auto;margin:16px 0 4px}
-.lbody table{width:100%;min-width:420px;border-collapse:collapse;font-size:14px}
-.lbody caption{text-align:left;color:var(--muted);font-size:13px;margin-bottom:8px}
-.lbody th,.lbody td{text-align:left;padding:8px 12px;border:1px solid var(--line-2);vertical-align:top;line-height:1.45}
-.lbody thead th{background:var(--panel);color:var(--ink);font-weight:500}
-.lbody tbody th{background:var(--panel);color:var(--muted);white-space:nowrap;font-weight:500}
-.lbody td{color:var(--text-2)}
-.lfaq h3{margin-top:16px;font-size:16px}
-
-footer{border-top:1px solid var(--line-2);background:var(--card)}
-.foot{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:20px 24px 24px;color:var(--muted);font-size:13px}
-.foot a{color:var(--muted);transition:color .16s var(--ease)}.foot a:hover{color:var(--ink)}.foot .sep{color:var(--faint)}
-
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,8px);background:var(--ink);color:var(--bg);border-radius:12px;padding:12px 16px;font-size:13px;box-shadow:0 16px 40px -16px rgba(13,17,28,.5);z-index:60;opacity:0;visibility:hidden;transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;max-width:calc(100% - 32px)}
-.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
-
-@media(max-width:1120px){.nlinks{display:none}}
-@media(max-width:720px){.chain span{display:none}.chain{padding:0 8px;gap:4px}}
-@media(max-width:560px){
-  .nav{padding:12px 16px;gap:8px}
-  .brand{font-size:16px}
-  .brand img{width:24px;height:24px}
-  .chain{height:36px;padding:0 8px;gap:4px}
-  .chain span{display:none}
-  .connect{height:36px;padding:0 12px;font-size:13px}
-  .hero{padding:24px 16px 40px}
-  .tabs{padding:16px 16px 12px}.promo{margin:0 16px;padding:24px}.cta-wrap{padding:16px}.cta{height:56px}
-  .learn{margin-top:40px;padding:0 16px 56px}
-}
-</style>
-<link rel="prerender" href="/dashboard/">
-<link rel="prefetch" href="/dashboard/" as="document">
-<link rel="preload" href="/dashboard/" as="document">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Avalanche Liquid Staking — Stake AVAX, Keep Your Liquidity</title>
+  <meta name="description" content="Avalanche Liquid Staking lets you delegate AVAX to validators on the P-Chain and receive a liquid token like sAVAX that keeps earning while it stays usable across DeFi. See APY, unbonding behavior, and risks before you stake.">
+  <link rel="canonical" href="https://avalanche-liquid-staking.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Avalanche Liquid Staking">
+  <meta property="og:description" content="Avalanche Liquid Staking lets you delegate AVAX to validators on the P-Chain and receive a liquid token like sAVAX that keeps earning while it stays usable across DeFi. See APY, unbonding behavior, and risks before you stake.">
+  <meta property="og:url" content="https://avalanche-liquid-staking.github.io/">
+  <meta property="og:image" content="https://avalanche-liquid-staking.github.io/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Avalanche Liquid Staking">
+  <meta name="twitter:description" content="Avalanche Liquid Staking lets you delegate AVAX to validators on the P-Chain and receive a liquid token like sAVAX that keeps earning while it stays usable across DeFi. See APY, unbonding behavior, and risks before you stake.">
+  <meta name="twitter:image" content="https://avalanche-liquid-staking.github.io/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://avalanche-liquid-staking.github.io/#website", "url": "https://avalanche-liquid-staking.github.io/", "name": "Avalanche Liquid Staking — Stake AVAX, Keep Your Liquidity"}, {"@type": "WebPage", "@id": "https://avalanche-liquid-staking.github.io/#webpage", "url": "https://avalanche-liquid-staking.github.io/", "name": "Avalanche Liquid Staking — Stake AVAX, Keep Your Liquidity", "isPartOf": {"@id": "https://avalanche-liquid-staking.github.io/#website"}, "description": "Avalanche Liquid Staking lets you delegate AVAX to validators on the P-Chain and receive a liquid token like sAVAX that keeps earning while it stays usable across DeFi. See APY, unbonding behavior, and risks before you stake.", "datePublished": "2026-11-28", "dateModified": "2026-11-28"}, {"@type": "SoftwareApplication", "name": "Avalanche Liquid Staking", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://avalanche-liquid-staking.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Staking"}, {"@type": "ListItem", "position": 3, "name": "Avalanche Liquid Staking"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Avalanche Liquid Staking?", "acceptedAnswer": {"@type": "Answer", "text": "It is delegating AVAX to P-Chain validators while receiving a liquid token, typically sAVAX, that represents your growing staked balance. The token can be used across DeFi while the underlying AVAX keeps earning staking rewards."}}, {"@type": "Question", "name": "What is sAVAX?", "acceptedAnswer": {"@type": "Answer", "text": "sAVAX is the liquid staking token minted by BENQI's staking protocol when you deposit AVAX. Its redemption value rises over time as staking rewards accrue, rather than the token balance itself changing."}}, {"@type": "Question", "name": "Can I lose my AVAX through liquid staking?", "acceptedAnswer": {"@type": "Answer", "text": "The main risks are smart contract failure in the staking protocol and validator underperformance reducing pool rewards, not direct slashing of your principal in most cases. Reviewing a protocol's audits and validator selection process before depositing is the best way to limit that exposure."}}, {"@type": "Question", "name": "How is liquid staking different from native staking?", "acceptedAnswer": {"@type": "Answer", "text": "Native P-Chain delegation locks your AVAX for a fixed term with no liquidity until it ends. Liquid staking gives you a tradable token immediately, so you can use that value in DeFi while the staking position keeps earning in the background."}}, {"@type": "Question", "name": "Do I need a minimum amount of AVAX to start?", "acceptedAnswer": {"@type": "Answer", "text": "Liquid staking protocols typically accept much smaller deposits than native delegation requires, since your AVAX is pooled with other delegators rather than staked alone. Check the specific protocol's interface for its current minimum."}}, {"@type": "Question", "name": "How do I exit a liquid staking position?", "acceptedAnswer": {"@type": "Answer", "text": "You redeem sAVAX back to AVAX through the staking protocol's unstaking queue, or you can sell sAVAX directly on the open market if you want immediate liquidity instead of waiting for redemption."}}, {"@type": "Question", "name": "Is this kind of staking custodial?", "acceptedAnswer": {"@type": "Answer", "text": "No. You interact with the staking protocol's smart contracts from your own self-custody wallet, and the resulting sAVAX stays in your wallet at all times. No exchange account or third-party custody is involved."}}]}]}</script>
+  <style>
+    :root{--bg:#0B0E14;--surface:#141926;--text:#EAEEF6;--muted:#8B94A7;--accent:#5B8CFF;--accent-ink:#07101F;--radius:12px;--display:"Space Grotesk";--body:"Inter"}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:2rem}
+    body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.7 var(--body);-webkit-font-smoothing:antialiased}
+    a{color:var(--accent);text-underline-offset:.22em}
+    a:hover{text-decoration-thickness:2px}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+    ::selection{background:var(--accent);color:var(--accent-ink)}
+    h1,h2,h3,p{margin:0}
+    h1,h2,h3{font-family:var(--display);text-wrap:balance}
+    svg{display:block;flex-shrink:0}
+    img{max-width:100%;height:auto}
+    .c908d6f{width:min(1180px,calc(100% - 64px));margin-inline:auto}
+    .c920195{position:absolute;top:1rem;left:1rem;z-index:10;transform:translateY(-200%);padding:.7rem 1rem;background:var(--surface);border-radius:var(--radius)}
+    .c920195:focus{transform:translateY(0)}
+    .cdb20d7{min-height:96px;display:flex;align-items:center;justify-content:space-between;gap:2rem;border-bottom:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
+    .cea0d1a{display:inline-flex;align-items:center;gap:.7rem;color:var(--text);font:600 1.2rem/1 var(--display);letter-spacing:-.04em;text-decoration:none}
+    .c512e4a{display:grid;place-items:center;width:38px;height:38px;background:var(--accent);color:var(--accent-ink);border-radius:var(--radius)}
+    .ccad01d{display:flex;align-items:center;gap:1.8rem}
+    .ccad01d>a{font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none}
+    .ccad01d>a:hover{color:var(--accent)}
+    .ccad01d .c92943d{padding:.65rem 1rem;border:1px solid color-mix(in srgb,var(--text) 18%,transparent);border-radius:var(--radius)}
+    .c93f495{padding-top:1.6rem;font-size:.8rem;color:var(--muted)}
+    .c291c8a{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;color:var(--muted)}
+    ol.c291c8a,ul.c291c8a,.c291c8a ol,.c291c8a ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.5rem}
+    .c291c8a a{color:var(--muted);text-decoration:none}
+    .c291c8a a:hover{color:var(--accent)}
+    .c291c8a [aria-current]{color:var(--text)}
+    .c441719{position:relative;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);align-items:start;gap:clamp(1.75rem,5vw,4rem);padding-block:2.25rem 3.5rem}
+    .c071310{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.35rem;color:var(--accent);font-size:.86rem;font-weight:600}
+    .c071310::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 10%,transparent)}
+    h1{font-size:clamp(2.5rem,4.8vw,4.7rem);line-height:1.06;letter-spacing:-.055em;overflow-wrap:anywhere}
+    h1 em{color:var(--accent);font-style:normal}
+    .ce071f9{margin-top:1.5rem;max-width:49ch;font-size:1.06rem;line-height:1.85;color:var(--muted)}
+    .c276f18{display:inline-flex;justify-content:center;align-items:center;gap:1.15rem;min-height:54px;padding:.9rem 1.4rem;border:1px solid color-mix(in srgb,var(--accent-ink) 12%,transparent);border-radius:var(--radius);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 88%,var(--surface)),var(--accent));box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent-ink);font:600 .95rem/1.4 var(--body);text-decoration:none;transition:transform .2s,box-shadow .2s}
+    .c276f18:hover{transform:translateY(-2px);box-shadow:0 12px 26px color-mix(in srgb,var(--accent) 26%,transparent)}
+    .c5b29c8>.c276f18{margin-top:2rem}
+    .c2c62fe{margin-top:1.1rem;color:var(--muted);font-size:.8rem}
+    .c8ada8f{position:relative;isolation:isolate;min-width:0;padding:1.25rem;background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:calc(var(--radius) * 1.5);box-shadow:0 28px 70px -20px color-mix(in srgb,var(--text) 19%,transparent),0 3px 10px color-mix(in srgb,var(--text) 4%,transparent)}
+    .c8ada8f::before{content:"";position:absolute;inset:-28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 68%);border-radius:calc(var(--radius) * 2)}
+    .c4f69a3{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.9rem}
+    .c4f69a3 h2{font-size:1.15rem;letter-spacing:-.035em}
+    .c401f6b{padding:.25rem .65rem;border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent);font-size:.72rem;font-weight:600}
+    .cc01907{display:grid;grid-template-columns:minmax(0,1fr) 38px minmax(0,1fr);align-items:center;gap:.6rem;padding:.65rem .8rem;border:1px solid color-mix(in srgb,var(--text) 9%,transparent);border-radius:var(--radius);background:color-mix(in srgb,var(--bg) 65%,var(--surface))}
+    .cf111dc{min-width:0;display:flex;align-items:center;gap:.7rem}
+    .cf111dc:last-child{justify-content:flex-end}
+    .c328515{font-size:.76rem;color:var(--muted)}
+    .ca9564d{min-width:0;display:flex;align-items:center;justify-content:center;max-width:100px;min-height:38px;overflow-wrap:anywhere}
+    .ca9564d img,.ca9564d svg{max-width:100%;max-height:38px;object-fit:contain}
+    .route-arrow{display:grid;place-items:center;width:34px;height:34px;border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:50%;color:var(--accent);background:var(--surface)}
+    .c275201{margin-top:.9rem}
+    .c267a20{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.55rem}
+    .c267a20 label{font-size:.85rem;font-weight:600}
+    .c5bd25a{font-size:.74rem;color:var(--muted)}
+    .cef69eb{display:flex;align-items:center;gap:.8rem;padding:.55rem .85rem;border:1px solid color-mix(in srgb,var(--text) 20%,transparent);border-radius:var(--radius);background:var(--bg);transition:border-color .2s,box-shadow .2s}
+    .cef69eb:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .cef69eb:has([aria-invalid="true"]){border-color:var(--accent)}
+    .cef69eb input{width:100%;min-width:0;padding:0;border:0;outline:none;background:var(--bg);color:var(--text);font:500 1.55rem/1.2 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+    .cef69eb input::placeholder{color:var(--muted)}
+    .cef69eb>span{font-size:.8rem;color:var(--muted)}
+    .cd6eeb8{min-height:1.4em;margin-top:.5rem;font-size:.73rem;color:var(--muted)}
+    .cd1265c{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:.8rem}
+    .cd1265c .c275201{margin-top:0}
+    .ce09203{position:relative}
+    .ce09203::after{content:"";position:absolute;right:.95rem;top:50%;width:.5rem;height:.5rem;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+    .c3021fa{width:100%;padding:.55rem 2rem .55rem .85rem;border:1px solid color-mix(in srgb,var(--text) 20%,transparent);border-radius:var(--radius);background:var(--bg);color:var(--text);font:500 1rem/1.3 var(--display);letter-spacing:-.02em;appearance:none;-webkit-appearance:none;cursor:pointer}
+    .c3021fa:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .cdb76c9{margin-top:1rem;padding:.95rem;border:1px solid color-mix(in srgb,var(--accent) 17%,transparent);border-radius:var(--radius);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),color-mix(in srgb,var(--accent) 3%,var(--surface)))}
+    .ceb10c4{font-size:.8rem;color:var(--muted)}
+    .c722e34{display:flex;align-items:baseline;flex-wrap:wrap;gap:.5rem;margin:.2rem 0 .7rem}
+    .c722e34 output{font:600 clamp(1.5rem,2.4vw,2.05rem)/1.15 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+    .c722e34 span{font-size:.8rem;color:var(--muted)}
+    .ca832a2{display:grid;gap:.4rem;margin:0;padding-top:.7rem;border-top:1px solid color-mix(in srgb,var(--accent) 14%,transparent);font-size:.82rem}
+    .ca832a2>div{display:flex;justify-content:space-between;gap:1rem}
+    .ca832a2 dt{color:var(--muted)}
+    .ca832a2 dd{margin:0;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+    .c8ada8f>.c276f18{width:100%;margin-top:1.2rem}
+    .c8819d9{margin-top:1rem;font-size:.75rem;color:var(--muted)}
+    .c8819d9 summary{cursor:pointer;width:fit-content;text-underline-offset:.2em}
+    .c8819d9 summary:hover{color:var(--accent)}
+    .c8819d9 p{margin-top:.55rem;line-height:1.7}
+    .ca9d389{padding:2rem 2.25rem;border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:var(--radius);background:var(--surface)}
+    .ce17129{font:600 1.4rem/1.3 var(--display);letter-spacing:-.035em;margin-bottom:1.25rem}
+    .cac16c9{overflow-x:auto}
+    .c5f8ddb{width:100%;border-collapse:collapse;text-align:left;font-size:.9rem}
+    .c5f8ddb caption{text-align:left;margin-bottom:1rem;color:var(--muted)}
+    .c5f8ddb th,.c5f8ddb td{padding:1rem 1.2rem;border-bottom:1px solid color-mix(in srgb,var(--text) 8%,transparent);vertical-align:top}
+    .c5f8ddb th:first-child,.c5f8ddb td:first-child{padding-left:0}
+    .c5f8ddb th:last-child,.c5f8ddb td:last-child{padding-right:0}
+    .c5f8ddb th{font-weight:600;color:var(--text)}
+    .c5f8ddb td{color:var(--muted)}
+    .c5f8ddb tbody tr:last-child>*{border-bottom:0}
+    .c5f8ddb thead{background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+    .ce0fd36{max-width:820px;margin:4.5rem auto}
+    .cd5afa7{margin-block:0 3rem;padding-bottom:2.75rem;border-bottom:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
+    .c4e49b9{margin:0 0 1.2rem;font:600 clamp(1.65rem,3vw,2.25rem)/1.2 var(--display);letter-spacing:-.04em}
+    .cafec50{color:var(--muted);line-height:1.9;overflow-wrap:anywhere}
+    .cafec50 p+p{margin-top:1.1rem}
+    .cafec50 h3{margin:1.8rem 0 .7rem;font-size:1.25rem;line-height:1.4;color:var(--text)}
+    .cafec50 strong{color:var(--text);font-weight:600}
+    .cafec50 ul,.cafec50 ol{padding-left:1.4rem;margin-block:1.2rem}
+    .cafec50 li+li{margin-top:.55rem}
+    .cafec50 li::marker{color:var(--accent)}
+    .cafec50 blockquote{margin:1.5rem 0;padding:1rem 1.4rem;border-left:3px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;background:color-mix(in srgb,var(--accent) 6%,var(--surface));color:var(--text)}
+    .ccc2dbd{margin-block:.8rem;border:1px solid color-mix(in srgb,var(--text) 12%,transparent);border-radius:var(--radius);background:var(--surface);overflow:hidden}
+    .ccf6883{position:relative;cursor:pointer;padding:1.2rem 3.3rem 1.2rem 1.35rem;list-style:none;font:500 1.05rem/1.5 var(--display);color:var(--text)}
+    .ccf6883::-webkit-details-marker{display:none}
+    .ccf6883::after{content:"+";position:absolute;right:1.35rem;top:1.15rem;color:var(--accent);font-size:1.3rem}
+    .ccc2dbd[open]>.ccf6883::after{content:"−"}
+    .ccc2dbd[open]{border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+    .ccf6883:focus-visible{outline-offset:-5px;border-radius:var(--radius)}
+    .c1ec690{padding:0 1.35rem 1.35rem;color:var(--muted);font-size:.95rem;line-height:1.85;overflow-wrap:anywhere}
+    .c1ec690 p+p{margin-top:.8rem}
+    .cab8dc4{padding:2rem 2.25rem;border-radius:var(--radius);background:color-mix(in srgb,var(--surface) 75%,var(--bg));border:1px solid color-mix(in srgb,var(--text) 8%,transparent)}
+    .ccb06de{margin:0;padding-left:1.2rem;color:var(--muted);font-size:.86rem}
+    .c1c4aba{padding:.35rem 0 .35rem .3rem;overflow-wrap:anywhere}
+    .c1c4aba::marker{color:var(--muted)}
+    .c1c4aba a{color:var(--text);text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+    .c1c4aba a:hover{color:var(--accent)}
+    .c36ca7d{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;padding-block:1.7rem 2rem;border-top:1px solid color-mix(in srgb,var(--text) 10%,transparent);color:var(--muted);font-size:.78rem}
+    .cafe1ce{font:600 .95rem/1.4 var(--display);color:var(--text)}
+    @media(min-width:1400px){.c441719{padding-block:2.75rem 4rem}}
+    @media(max-width:900px){.c441719{gap:2rem;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.c8ada8f{padding:1.25rem}.cc01907{padding:.8rem}.cf111dc{flex-direction:column;gap:.25rem}.cf111dc:last-child{flex-direction:column-reverse}h1{font-size:clamp(2.5rem,5.5vw,4rem)}}
+    @media(max-width:720px){.c908d6f{width:calc(100% - 40px)}.cdb20d7{min-height:78px;gap:1rem}.ccad01d{gap:1rem}.ccad01d>.c86312d{display:none}.c441719{grid-template-columns:minmax(0,1fr);padding-block:2.75rem 3rem;gap:2.5rem}.c5b29c8{max-width:560px}h1{font-size:clamp(2.6rem,9vw,4rem)}.ce071f9{font-size:1rem}.c8ada8f{width:100%;max-width:520px;justify-self:center;padding:1.5rem}.cf111dc,.cf111dc:last-child{flex-direction:row}.ca9d389,.cab8dc4{padding:1.5rem}.ce0fd36{margin-block:3rem}.c5f8ddb th,.c5f8ddb td{padding:.85rem .75rem}.cd5afa7{margin-bottom:2rem;padding-bottom:2rem}.c36ca7d{margin-top:2rem}}
+    @media(max-width:380px){.c908d6f{width:calc(100% - 28px)}.c8ada8f{padding:1rem}.cea0d1a{font-size:1.05rem}.ccad01d .c92943d{padding:.55rem .7rem}.cf111dc,.cf111dc:last-child{flex-direction:column}.cf111dc:last-child{flex-direction:column-reverse}.ca9d389,.cab8dc4{padding:1.1rem}.ca832a2{font-size:.76rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+  </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="i-cv" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 5 5 5-5"/></symbol>
-<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.4 3 8.4 7 10 4-1.6 7-5.6 7-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
-<symbol id="i-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="5" ry="2.5"/><path d="M4 7v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V7"/><path d="M10 15.5c.6 1.2 2.6 2 5 2 2.8 0 5-1.1 5-2.5v-4c0-1.4-2.2-2.5-5-2.5"/><path d="M20 15v4c0 1.4-2.2 2.5-5 2.5s-5-1.1-5-2.5v-2"/></symbol>
-<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/><path d="M12 14.5v2"/></symbol>
-<symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
-<symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s-6 6.4-6 10.5a6 6 0 0 0 12 0c0-4.1-6-10.5-6-10.5z"/></symbol>
-<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
-<symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01"/></symbol>
-<symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.8 7.8 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.6 7.6 0 0 0-1.7-1L15 2.5h-4l-.4 2.6c-.6.3-1.2.6-1.7 1l-2.3-1-2 3.4L4.6 11a7.8 7.8 0 0 0 0 2l-2 1.5 2 3.4 2.3-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.3 1 2-3.4z"/></symbol>
-</defs></svg>
-
-<header class="nav">
-  <a class="brand" href="index.html" aria-label="Avalanche Staking home"><img src="icon.svg" alt=""><span>Avalanche Staking</span></a>
-  <nav class="nlinks" aria-label="Primary">
-    <a href="#overview">What is it</a>
-    <a href="#compare">Native vs liquid</a>
-    <a href="#how">How to stake</a>
-    <a href="#fees">Fees</a>
-    <a href="#security">Security</a>
-    <a href="#faq">FAQ</a>
-  </nav>
-  <span class="spacer"></span>
-  <a class="chain" href="/dashboard/" style="text-decoration:none"><img src="assets/avalanche.svg" alt=""><span>Avalanche</span><svg class="cv" aria-hidden="true"><use href="#i-cv"/></svg></a>
-  <a class="connect" href="/dashboard/" style="text-decoration:none">Connect wallet</a>
-</header>
-
-<main>
-  <section class="hero">
-    <h1>Avalanche Staking</h1>
-
-    <section class="card" aria-label="Avalanche Staking">
-      <div class="tabs">
-        <button class="tab on" type="button">Delegate</button>
-        <button class="tab" type="button">Validators</button>
-        <button class="tab" type="button">Rewards</button>
-        <span class="sp"></span>
-        <button class="ic gear" type="button" aria-label="Settings" data-toast="Staking settings are disabled in this demo."><svg aria-hidden="true"><use href="#i-gear"/></svg></button>
+  <a class="c920195" href="#content">Skip to content</a>
+  <div class="c908d6f">
+    <nav class="cdb20d7" aria-label="Primary navigation">
+      <a class="cea0d1a" href="#" aria-label="Staking guide home">
+        <span class="c512e4a" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M5 19V11a7 7 0 0 1 14 0v8M9 19v-8a3 3 0 0 1 6 0v8" stroke="var(--accent-ink)" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+        Staking guide
+      </a>
+      <div class="ccad01d">
+        <a class="c86312d" href="#key-facts">Key facts</a>
+        <a class="c86312d" href="#sources">Sources</a>
+        <a class="c92943d" href="dashboard/">Stake <span aria-hidden="true">↗</span></a>
       </div>
-
-      <div class="promo promo-flow">
-        <div class="promo-txt">
-          <h2 class="promo-h">Delegate AVAX to a validator</h2>
-          <p class="promo-sub">Stake on the P-Chain, choose a lock period, and sign from your own wallet.</p>
+    </nav>
+    <div class="c93f495"><nav class="c291c8a" aria-label="Breadcrumb"><a href="dashboard/">Home</a> <span>/</span> <span>Staking</span> <span>/</span> <span>Avalanche Liquid Staking</span></nav></div>
+    <section class="c441719" aria-labelledby="hero-heading">
+      <div class="c5b29c8">
+        <span class="c071310">Staking calculator</span>
+        <h1 id="hero-heading">Avalanche <em>Liquid Staking</em>.</h1>
+        <p class="ce071f9">Avalanche Liquid Staking lets you delegate AVAX to a validator on the P-Chain and earn staking rewards while receiving a liquid staking token in return, so your stake never has to sit idle and locked away from the rest of DeFi. Instead of waiting out a fixed unbonding period before you can touch your AVAX again, you hold a receipt token that tracks your growing balance and can be traded, lent, or used as collateral the moment you mint it. Enter an amount, check the current APY and rewards period below, and see what your stake could earn before you delegate anything.</p>
+        <a class="c276f18" href="dashboard/">Stake <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="var(--accent-ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <p class="c2c62fe">Set the amount and APY. Pick a period. See the rewards.</p>
+      </div>
+      <aside class="c8ada8f" aria-labelledby="calculator-heading">
+        <div class="c4f69a3">
+          <h2 id="calculator-heading">Your staking rewards</h2>
+          <span class="c401f6b">Rewards</span>
         </div>
-        <ol class="flow">
-          <li><span class="fi"><img src="assets/avax.svg" alt=""></span><b>Your AVAX</b><small>Moved from C-Chain to P-Chain</small></li>
-          <li><span class="fi on"><svg aria-hidden="true"><use href="#i-shield"/></svg></span><b>Validator</b><small>You pick by uptime and fee</small></li>
-          <li><span class="fi"><svg aria-hidden="true"><use href="#i-clock"/></svg></span><b>Lock period</b><small>Rewards paid when it ends</small></li>
-        </ol>
-      </div>
-
-      <div class="cta-wrap"><a class="cta" href="/dashboard/" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Delegate AVAX</a></div>
+        <div class="cc01907" aria-label="Staked asset">
+          <div class="cf111dc"><span class="ca9564d"><img src="assets/tokens/avalanche.svg" alt="Avalanche" width="28" height="28"></span><span class="c328515">Staked asset</span></div>
+        </div>
+        <div class="c275201">
+          <div class="c267a20"><label for="amount">Amount staked</label><span class="c5bd25a">Your deposit</span></div>
+          <div class="cef69eb"><input id="amount" type="text" inputmode="decimal" value="1000" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="amount-help" aria-invalid="false"><span>units</span></div>
+          <p id="amount-help" class="cd6eeb8">Enter an amount from 1 to 1,000,000 units.</p>
+        </div>
+        <div class="cd1265c">
+          <div class="c275201">
+            <div class="c267a20"><label for="apy">APY</label><span class="c5bd25a">Annual %</span></div>
+            <div class="cef69eb"><input id="apy" type="text" inputmode="decimal" value="5" autocomplete="off" spellcheck="false" maxlength="6" aria-describedby="apy-help" aria-invalid="false"><span>%</span></div>
+          </div>
+          <div class="c275201">
+            <div class="c267a20"><label for="period">Period</label><span class="c5bd25a">Horizon</span></div>
+            <div class="ce09203"><select id="period" class="c3021fa"><option value="0.0833">1 month</option><option value="0.5">6 months</option><option value="1" selected>1 year</option><option value="3">3 years</option></select></div>
+          </div>
+        </div>
+        <p id="apy-help" class="cd6eeb8">Rewards compound monthly at the APY you enter.</p>
+        <div class="cdb76c9" aria-live="polite" aria-atomic="true">
+          <p class="ceb10c4">Estimated rewards</p>
+          <div class="c722e34"><output id="received" for="amount">51.16</output><span>units</span></div>
+          <dl class="ca832a2">
+            <div><dt>Balance at end</dt><dd><output id="total" for="amount">1,051.16</output> units</dd></div>
+            <div><dt>APY used</dt><dd><output id="apyout" for="amount">5.00%</output></dd></div>
+          </dl>
+        </div>
+        <a class="c276f18" href="dashboard/">Stake <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="var(--accent-ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <details class="c8819d9">
+          <summary>How the estimate works</summary>
+          <p>Rewards compound monthly: the balance at the end equals the amount staked times (1 + APY/12) raised to the number of months in the period, and the estimated rewards are that balance minus your deposit. The APY you enter is the annual rate; actual rates vary with the network and validator.</p>
+        </details>
+        <noscript><p class="cd6eeb8">Enable JavaScript to calculate a different amount.</p></noscript>
+      </aside>
     </section>
-  </section>
+    <section id="key-facts" class="ca9d389" aria-labelledby="facts-heading">
+      <h2 id="facts-heading" class="ce17129">Key facts</h2>
+      <div class="cac16c9"><table class="c5f8ddb"><tbody><tr><th scope="row">Underlying asset</th><td>AVAX</td></tr>
+<tr><th scope="row">Staking layer</th><td>Avalanche P-Chain validators</td></tr>
+<tr><th scope="row">Liquid staking token</th><td>sAVAX (minted via BENQI)</td></tr>
+<tr><th scope="row">Delegation mechanism</th><td>Pooled delegation across active validators</td></tr>
+<tr><th scope="row">Unbonding on exit</th><td>Standard P-Chain unlock cycle, no instant native exit</td></tr>
+<tr><th scope="row">Custody</th><td>Self-custody wallet; no exchange account required</td></tr></tbody></table></div>
+    </section>
+    <main id="content" class="ce0fd36">
+      <section class="cd5afa7"><h2 class="c4e49b9">What Is Avalanche Liquid Staking?</h2><div class="cafec50"><strong>Avalanche Liquid Staking is the practice of delegating AVAX to validators on Avalanche's P-Chain while holding a tradable token that represents your staked balance and its accruing rewards.</strong> Native Avalanche staking works well for long-term holders, but it ties up AVAX for the full staking period and gives you nothing to show for it in the meantime. A liquid staking protocol solves that by pooling your AVAX with other delegators, spreading it across a basket of validators, and minting you a token — most commonly sAVAX — that rises in value as rewards accrue. You keep full exposure to AVAX's staking yield without giving up the ability to use that value elsewhere.<h3>Why liquidity matters for stakers</h3>Locking AVAX into a validator for weeks or months means missing out on anything else you might do with it — supplying it to a lending market, pairing it in a liquidity pool, or simply selling part of it if your plans change. Liquid staking removes that trade-off: the liquid token is yours to move the moment it is minted, so the decision to stake no longer competes with every other use of your capital.</div></section>
+<section class="cd5afa7"><h2 class="c4e49b9">How Avalanche Liquid Staking Works on the P-Chain</h2><div class="cafec50">Avalanche splits responsibilities across three chains, and staking specifically happens on the <strong>P-Chain</strong>, the platform chain that tracks validators and delegators. When you use a liquid staking protocol, your deposit is pooled with everyone else's and delegated to a curated set of validators that meet uptime and performance thresholds, rather than you choosing and monitoring one validator yourself. The protocol's smart contracts record your share of the pool and mint the liquid token to your wallet in the same transaction.<h3>Validators and delegation</h3>A validator on Avalanche stakes its own AVAX and processes blocks in exchange for rewards, and delegators like you add weight to a validator's stake to earn a cut of that reward without running hardware yourself. The <a href="https://docs.avax.network/" rel="nofollow noopener" target="_blank">Avalanche documentation</a> describes the minimum stake, validator uptime requirements, and how rewards are calculated for both validators and their delegators.<h3>Why pooling beats picking one validator</h3>Choosing a single validator concentrates your risk on that validator's uptime and honesty. Pooling across many reduces the impact of any one validator underperforming or going offline, which is part of why liquid staking protocols can offer a smoother, more predictable yield than delegating to one address on your own.</div></section>
+<section class="cd5afa7"><h2 class="c4e49b9">sAVAX: The Liquid Staking Token for AVAX</h2><div class="cafec50">The dominant liquid staking token on the network is <strong>sAVAX</strong>, issued by BENQI's staking protocol. Rather than rebasing your balance, sAVAX grows in redeemable value relative to AVAX as staking rewards accumulate, so one sAVAX is worth more AVAX today than it was last month. That design keeps the token simple to integrate: DeFi protocols can treat it like any other ERC-20-style asset without special handling for a changing balance.<h3>Using sAVAX while it earns</h3>Because sAVAX keeps accruing value in the background, holders supply it as collateral on lending markets, pair it in liquidity pools, or hold it in a vault strategy — all while the underlying AVAX keeps earning its P-Chain staking reward. You can check a wallet's sAVAX balance and its transaction history directly on <a href="https://snowtrace.io/" rel="nofollow noopener" target="_blank">Snowtrace</a>, Avalanche's block explorer.<h3>Minting and redeeming</h3>Minting sAVAX is a single on-chain transaction through the staking protocol's interface: you deposit AVAX and receive sAVAX at the current exchange rate. Redeeming works in reverse, converting sAVAX back to AVAX plus the rewards it has accrued, subject to the protocol's unstaking queue.</div></section>
+<section class="cd5afa7"><h2 class="c4e49b9">Avalanche Liquid Staking Rewards: APY and Lock-up</h2><div class="cafec50">Rewards from liquid staking come from the same source as native staking — block rewards paid to validators and shared with delegators — minus a small protocol fee for running the pooling and liquidity infrastructure. The APY floats with network-wide staking participation and the proportion of AVAX supply currently delegated, so it is worth checking the live rate before you commit an amount. The table below compares how liquidity and typical lock-up differ across the main ways to stake AVAX.<table><thead><tr><th>Staking option</th><th>Liquidity while staked</th><th>Typical lock-up</th></tr></thead><tbody><tr><td>Liquid staking (sAVAX)</td><td>Full — token usable immediately in DeFi</td><td>None on the token; redemption queue to unwind</td></tr><tr><td>Native P-Chain delegation</td><td>None — AVAX is locked for the chosen period</td><td>Fixed term you select up front</td></tr><tr><td>Centralized exchange staking</td><td>Limited — depends on the exchange's own terms</td><td>Varies by exchange, often with notice periods</td></tr></tbody></table><h3>Why rewards aren't fixed</h3>Validator rewards depend on total stake weight across the network, so as more AVAX gets delegated, the reward rate per token tends to ease, and as participation falls, it tends to rise. This is standard across proof-of-stake networks — a dynamic also visible in how <a href="https://ethereum.org/en/staking/" rel="nofollow noopener" target="_blank">ethereum.org describes staking rewards</a> adjusting with total validator participation.</div></section>
+<section class="cd5afa7"><h2 class="c4e49b9">How to Start Avalanche Liquid Staking</h2><div class="cafec50">Getting from idle AVAX to an earning sAVAX position takes only a handful of steps, and none of them require handing custody to anyone else.<ul><li>Connect a self-custody wallet that holds AVAX on the Avalanche C-Chain.</li><li>Open the liquid staking protocol's deposit screen and enter the amount of AVAX you want to stake.</li><li>Review the current exchange rate between AVAX and sAVAX, plus the displayed APY.</li><li>Confirm the transaction in your wallet and pay the network fee.</li><li>Receive sAVAX in your wallet, ready to hold, use in DeFi, or redeem later through the protocol's unstaking queue.</li></ul></div></section>
+<section class="cd5afa7"><h2 class="c4e49b9">Risks of Avalanche Liquid Staking</h2><div class="cafec50">Liquid staking carries a different risk profile than simply holding AVAX, and understanding it matters as much as understanding the reward.<h3>Slashing and validator risk</h3>Avalanche's consensus design means poor validator behavior mainly costs that validator its own rewards rather than directly cutting delegator principal, but a validator that goes offline for long enough can still reduce the rewards a pool earns during that period. Choosing a protocol that actively monitors and rotates underperforming validators limits this exposure.<h3>Smart contract and peg risk</h3>sAVAX's value depends on the staking protocol's contracts correctly tracking rewards and honoring redemptions. A contract bug or an exploit could cause sAVAX to trade below the AVAX it represents, which is why checking a protocol's audit history and track record before depositing matters as much as the headline APY.<h3>Self-custody is still on you</h3>No staking protocol, wallet, or support channel will ever need your seed phrase to mint or redeem sAVAX — every action happens through a transaction you sign yourself. Keeping your recovery phrase offline and never entering it anywhere online remains the single biggest protection for any staked position.</div></section>
+<section class="cd5afa7"><h2 class="c4e49b9">Liquid Staking vs Other Ways to Stake AVAX</h2><div class="cafec50">Native P-Chain delegation still makes sense for holders who want zero smart-contract exposure beyond Avalanche's own protocol and don't mind the AVAX sitting locked for a fixed term they chose at the start. Centralized exchange staking is the simplest on-ramp for beginners, but it hands custody to the exchange and usually offers less transparency about validator selection than an on-chain protocol does. Liquid staking sits between the two: it keeps you in self-custody like native delegation while giving you back the liquidity that locked staking gives up, which is why it has become the default choice for AVAX holders who are also active in DeFi. The background on how Avalanche's broader architecture supports this kind of flexibility is covered on its <a href="https://en.wikipedia.org/wiki/Avalanche_(blockchain_platform)" rel="nofollow noopener" target="_blank">Wikipedia entry</a> and in the protocol's own <a href="https://benqi.fi/" rel="nofollow noopener" target="_blank">BENQI documentation</a>.</div></section><section class="cd5afa7 cdd5923" id="related"><h2 class="c4e49b9">Related tools</h2><div class="cafec50"><ul><li><a href="https://stake-wbtc.github.io/">Stake WBTC explained</a></li><li><a href="https://polygon-staking-app.github.io/">How Polygon Staking works</a></li><li><a href="https://staking-pool.github.io/">Staking Pool explained</a></li><li><a href="https://mnt-staking.github.io/">MNT Staking</a></li><li><a href="https://restake-eth.github.io/">Restake ETH</a></li></ul></div></section>
+      <details class="ccc2dbd"><summary class="ccf6883">What is Avalanche Liquid Staking?</summary><div class="c1ec690">It is delegating AVAX to P-Chain validators while receiving a liquid token, typically sAVAX, that represents your growing staked balance. The token can be used across DeFi while the underlying AVAX keeps earning staking rewards.</div></details>
+<details class="ccc2dbd"><summary class="ccf6883">What is sAVAX?</summary><div class="c1ec690">sAVAX is the liquid staking token minted by BENQI's staking protocol when you deposit AVAX. Its redemption value rises over time as staking rewards accrue, rather than the token balance itself changing.</div></details>
+<details class="ccc2dbd"><summary class="ccf6883">Can I lose my AVAX through liquid staking?</summary><div class="c1ec690">The main risks are smart contract failure in the staking protocol and validator underperformance reducing pool rewards, not direct slashing of your principal in most cases. Reviewing a protocol's audits and validator selection process before depositing is the best way to limit that exposure.</div></details>
+<details class="ccc2dbd"><summary class="ccf6883">How is liquid staking different from native staking?</summary><div class="c1ec690">Native P-Chain delegation locks your AVAX for a fixed term with no liquidity until it ends. Liquid staking gives you a tradable token immediately, so you can use that value in DeFi while the staking position keeps earning in the background.</div></details>
+<details class="ccc2dbd"><summary class="ccf6883">Do I need a minimum amount of AVAX to start?</summary><div class="c1ec690">Liquid staking protocols typically accept much smaller deposits than native delegation requires, since your AVAX is pooled with other delegators rather than staked alone. Check the specific protocol's interface for its current minimum.</div></details>
+<details class="ccc2dbd"><summary class="ccf6883">How do I exit a liquid staking position?</summary><div class="c1ec690">You redeem sAVAX back to AVAX through the staking protocol's unstaking queue, or you can sell sAVAX directly on the open market if you want immediate liquidity instead of waiting for redemption.</div></details>
+<details class="ccc2dbd"><summary class="ccf6883">Is this kind of staking custodial?</summary><div class="c1ec690">No. You interact with the staking protocol's smart contracts from your own self-custody wallet, and the resulting sAVAX stays in your wallet at all times. No exchange account or third-party custody is involved.</div></details>
+    </main>
+    <section id="sources" class="cab8dc4" aria-labelledby="sources-heading">
+      <h2 id="sources-heading" class="ce17129">Sources</h2>
+      <ul class="ccb06de"><li><a class="c1c4aba" href="https://docs.avax.network/" rel="nofollow noopener" target="_blank">Avalanche documentation</a></li>
+<li><a class="c1c4aba" href="https://benqi.fi/" rel="nofollow noopener" target="_blank">BENQI</a></li>
+<li><a class="c1c4aba" href="https://snowtrace.io/" rel="nofollow noopener" target="_blank">Snowtrace explorer</a></li>
+<li><a class="c1c4aba" href="https://en.wikipedia.org/wiki/Avalanche_(blockchain_platform)" rel="nofollow noopener" target="_blank">Avalanche on Wikipedia</a></li></ul>
+    </section>
+    <footer class="c36ca7d">
+      <span class="cafe1ce">Staking guide</span>
+      <div>Updated Nov 28, 2026</div>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      const amount = document.getElementById('amount');
+      const apy = document.getElementById('apy');
+      const period = document.getElementById('period');
+      const help = document.getElementById('amount-help');
+      const received = document.getElementById('received');
+      const total = document.getElementById('total');
+      const apyout = document.getElementById('apyout');
+      const format = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      let pending;
+      function num(el, min, max) {
+        const raw = el.value.trim();
+        const ok = /^(?:\d+(?:[.,]\d{1,4})?|[.,]\d{1,4})$/.test(raw);
+        const v = ok ? Number(raw.replace(',', '.')) : NaN;
+        return (Number.isFinite(v) && v >= min && v <= max) ? v : NaN;
+      }
+      function calculate() {
+        const value = num(amount, 1, 1000000);
+        const rate = num(apy, 0, 1000);
+        amount.setAttribute('aria-invalid', String(Number.isNaN(value)));
+        apy.setAttribute('aria-invalid', String(Number.isNaN(rate)));
+        if (Number.isNaN(value) || Number.isNaN(rate)) {
+          received.textContent = '—';
+          total.textContent = '—';
+          apyout.textContent = '—';
+          help.textContent = 'Enter an amount (1–1,000,000) and an APY (0–1,000%).';
+          return;
+        }
+        const years = Number(period.value) || 1;
+        const months = Math.max(1, Math.round(years * 12));
+        const monthly = rate / 100 / 12;
+        const endBalance = value * Math.pow(1 + monthly, months);
+        received.textContent = format.format(endBalance - value);
+        total.textContent = format.format(endBalance);
+        apyout.textContent = format.format(rate) + '%';
+        help.textContent = 'Enter an amount from 1 to 1,000,000 units.';
+      }
+      amount.addEventListener('input', () => { clearTimeout(pending); pending = setTimeout(calculate, 180); });
+      apy.addEventListener('input', () => { clearTimeout(pending); pending = setTimeout(calculate, 180); });
+      amount.addEventListener('blur', () => { clearTimeout(pending); calculate(); });
+      apy.addEventListener('blur', () => { clearTimeout(pending); calculate(); });
+      period.addEventListener('change', calculate);
+      calculate();
+    })();
+  </script>
+</body>
+</html>
 
-  <section class="learn" id="learn">
-    <p class="learn-h">Learn about Avalanche staking</p>
-    <div class="lrow">
-      <details class="lcard" name="learn" id="overview"><summary><span>What is it</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>What Avalanche staking is</h2>
-<p><strong>Avalanche staking</strong> means locking AVAX to help secure the Primary Network. Most holders do not run a validator themselves; they delegate their AVAX to one, and the validator's node does the work of validating.</p>
-<h3>Where staking happens</h3>
-<p>Staking lives on the P-Chain (Platform Chain), which tracks validators and delegations. Your AVAX usually sits on the C-Chain, so it has to be moved to the P-Chain before it can be delegated.</p>
-<h3>What you choose</h3>
-<p>You pick a validator, an amount above the network minimum, and a lock period from about two weeks up to one year. The stake stays locked for that whole period and is returned at the end together with any rewards earned. Read the network rules in the <a href="https://docs.avax.network/" target="_blank" rel="nofollow noopener">Avalanche docs</a>.</p></div></details>
-
-      <details class="lcard" name="learn" id="compare"><summary><span>Native vs liquid</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>Native delegation vs liquid staking</h2>
-<p>There are two common ways to earn staking rewards on AVAX. This interface does the first one: direct delegation on the P-Chain.</p>
-<div class="tbl"><table><caption>Native P-Chain delegation vs liquid staking</caption><thead><tr><th scope="col"></th><th scope="col">Native P-Chain delegation</th><th scope="col">Liquid staking</th></tr></thead><tbody><tr><th scope="row">What you hold</th><td>Your AVAX, locked on the P-Chain</td><td>A receipt token from a third-party contract</td></tr><tr><th scope="row">Lock period</th><td>Fixed period you choose; no early exit</td><td>Receipt token can usually be traded or redeemed sooner</td></tr><tr><th scope="row">Extra risk</th><td>Validator uptime affects rewards</td><td>Smart-contract and token price risk on top</td></tr><tr><th scope="row">Fees</th><td>Validator delegation fee plus small network fees</td><td>Protocol fee, plus network fees</td></tr><tr><th scope="row">Where it runs</th><td>Avalanche Primary Network itself</td><td>Contracts, typically on the C-Chain</td></tr></tbody></table></div>
-<h3>Which fits</h3>
-<p>Native delegation suits holders who are comfortable locking AVAX for a known period and want no extra contract layer. Liquid staking trades that simplicity for flexibility.</p></div></details>
-
-      <details class="lcard" name="learn" id="how"><summary><span>How to stake</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>How to stake AVAX</h2>
-<h3>Move, then delegate</h3>
-<p>Delegation happens on the P-Chain, so funds on the C-Chain take one extra step first. Each transfer is signed in your wallet.</p>
-<h3>Step by step</h3>
-<ol>
-<li>Connect your wallet and check your AVAX balance on the C-Chain.</li>
-<li>Export AVAX from the C-Chain and import it to the P-Chain; both steps cost a small fee in AVAX.</li>
-<li>Choose a validator and an amount at or above the minimum delegation.</li>
-<li>Choose a lock period, from about two weeks to one year, and review the summary.</li>
-<li>Sign the delegation. Your stake and rewards are returned when the period ends.</li>
-</ol>
-<p>Keep a little unstaked AVAX for fees, since they are paid in AVAX.</p></div></details>
-
-      <details class="lcard" name="learn" id="fees"><summary><span>Fees</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>What Avalanche staking costs</h2>
-<h3>Network fees</h3>
-<p>Moving AVAX between chains uses an export and an import transaction, each with a small fee paid in AVAX. Submitting the delegation itself also carries a network fee.</p>
-<h3>Validator delegation fee</h3>
-<p>Each validator sets a delegation fee, a share of your rewards it keeps for running the node. It is shown for each validator, so compare it before you choose.</p>
-<h3>Rewards depend on uptime</h3>
-<p>Rewards are paid only if the validator you picked meets the network's uptime requirement during your period. A validator that is often offline can leave you with reduced or no rewards, though your principal is still returned.</p></div></details>
-
-      <details class="lcard" name="learn" id="security"><summary><span>Security</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>Staking safely</h2>
-<h3>Non-custodial by design</h3>
-<p>You connect your own wallet and sign every transfer and delegation yourself. The interface builds the transactions; it never holds your funds or keys.</p>
-<h3>Principal is not slashed</h3>
-<p>Avalanche does not slash delegated principal. If a validator misbehaves or goes offline, the usual cost is missed rewards, not lost stake.</p>
-<h3>Before you sign</h3>
-<ul>
-<li>Remember the stake is locked for the full period and cannot be withdrawn early.</li>
-<li>Check validator uptime and delegation fee before choosing.</li>
-<li>Confirm the amount, the chain and the end date in your wallet prompt.</li>
-<li>Use a wallet you control and keep its recovery phrase offline.</li>
-</ul></div></details>
-
-      <details class="lcard" name="learn" id="faq"><summary><span>FAQ</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody lfaq"><h2>Avalanche Staking FAQ</h2>
-<h3>How does Avalanche staking work?</h3>
-<p>You delegate AVAX to a validator on the Primary Network P-Chain for a lock period you choose. The validator secures the network, and when the period ends your stake is returned together with any rewards earned.</p>
-<h3>Do I need to move AVAX to the P-Chain first?</h3>
-<p>Yes. AVAX usually sits on the C-Chain, and delegation happens on the P-Chain. You export from the C-Chain and import to the P-Chain, each step costing a small fee in AVAX.</p>
-<h3>How long is my AVAX locked?</h3>
-<p>For the whole period you choose, which ranges from about two weeks to one year. There is no early withdrawal, so pick a period you can commit to.</p>
-<h3>Can I lose my AVAX when staking on Avalanche?</h3>
-<p>Avalanche does not slash delegated principal, so a validator's misbehavior does not reduce your stake. You can still lose out on rewards if the validator has poor uptime, and the usual wallet and phishing risks apply.</p>
-<h3>What do validators charge for delegation?</h3>
-<p>Each validator sets its own delegation fee, a share of the rewards it keeps. Rewards also depend on the validator meeting the network's uptime requirement during your period.</p>
-<h3>Is this interface custodial?</h3>
-<p>No. You connect your own wallet and sign each transaction, and the interface never holds your funds or keys. It is an independent tool, not an official Avalanche site.</p></div></details>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="foot"><span>&copy; 2026 Avalanche Staking</span><span class="sep">&middot;</span><a href="legal.html#privacy">Privacy</a><span class="sep">&middot;</span><a href="legal.html#terms">Terms</a><span class="sep">&middot;</span><span>Non-custodial &middot; Avalanche P-Chain</span></div>
-</footer>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-(function(){
-"use strict";
-var tabs=[].slice.call(document.querySelectorAll('.tab'));
-tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.classList.toggle('on',x===t);});});});
-
-var toast=document.getElementById('toast'),tT;
-function notify(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){toast.classList.remove('show');},3000);}
-[].slice.call(document.querySelectorAll('[data-toast]')).forEach(function(b){b.addEventListener('click',function(){notify(b.getAttribute('data-toast'));});});
-
-function openHash(){var id=location.hash.slice(1);if(!id)return;var c=document.getElementById(id);if(c&&c.matches&&c.matches('.lcard[name="learn"]'))c.open=true;}
-window.addEventListener('hashchange',openHash);openHash();
-[].slice.call(document.querySelectorAll('.nlinks a')).forEach(function(a){a.addEventListener('click',function(){var c=document.getElementById(a.getAttribute('href').slice(1));if(c&&c.matches('.lcard'))c.open=true;});});
-})();
-</script>
-</body></html>
